@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>Emoji BBS</title>
+</head>
+<body>
+<form method="post" action="">
+    <input type="text" name="text" />
+    <input type="submit" />
+</form>
+<hr />
+<?php
+foreach ($lines as $line) {
+    $data = explode("\t", rtrim($line));
+    echo htmlspecialchars($data[0]) . '<br />[';
+    echo htmlspecialchars($data[1]) . '] (';
+    echo htmlspecialchars($data[2]) . ")<hr />\n";
+}
+?>
+</body>
+</html>

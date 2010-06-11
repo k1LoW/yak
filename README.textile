@@ -1,0 +1,38 @@
+h1. Yet Another Ktai plugin for CakePHP
+
+h2. Alpha Status
+
+このプラグインはまだアルファバージョンです。
+This plugin is personal test use.
+
+h2. Features
+
+h3. レンダリングエンジンにHTML_Emojiを使用
+
+絵文字を含むビューのレンダリングエンジンに処理が高速なHTML_Emojiを使用しています。
+YakはHTML_EmojiのCakePHP用ラッパーであると言っても過言ではありません。
+
+h3. シンプル
+
+ソースコードはUTF-8、それ以外はHTML_Emojiの制約に沿うことで、非常にシンプルな使用ができることを目指しています。
+"Do It Yourself!"と言いたいところですが、本当のところはわかりません。
+
+h3. CakePHPに特化
+
+app/pluginsにyakを設置し、app_contoller.phpに以下のように記述するだけ設定完了です。
+
+<pre>
+class AppController extends Controller {
+    var $components = array('Yak.Yak');
+
+    function redirect($url, $status = null, $exit = true){
+        parent::redirect($this->Yak->generateRedirectUrl($url), $status, $exit);
+    }
+}
+</pre>
+
+h2. よくある質問
+
+h3. 動かないんだけど
+
+動きません。ちなみに動かないのはHTML_Emojiのせいではありません。
