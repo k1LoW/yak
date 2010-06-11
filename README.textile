@@ -7,9 +7,9 @@ This plugin is personal test use.
 
 h2. Features
 
-h3. レンダリングエンジンにHTML_Emojiを使用
+h3. レンダリングエンジンにHTML_Emojiを採用
 
-絵文字を含むビューのレンダリングエンジンに処理が高速な "HTML_Emoji":http://libemoji.com/ を採用しています。
+絵文字を含むビューのレンダリングエンジンに変換処理が高速な "HTML_Emoji":http://libemoji.com/ を採用しています。
 Yakは "HTML_Emoji":http://libemoji.com/ のCakePHP用ラッパーであると言っても過言ではありません。
 
 h3. シンプル
@@ -31,8 +31,27 @@ class AppController extends Controller {
 }
 </pre>
 
-h2. よくある質問
+また、現在は画像ファイルをコミットしていませんので、こちらもapp/plugins/yak/webroot/img/に展開してください。
+
+h2. FAQ
 
 h3. 動かないんだけど
 
 動きません。ちなみに動かないのは "HTML_Emoji":http://libemoji.com/ のせいではありません。
+
+h2. Lisence
+
+h3. HTML_Emoji
+
+@author     revulo <revulon@gmail.com>
+@copyright  2009-2010 revulo
+@license    http://www.opensource.org/licenses/mit-license.php  MIT License
+@version    Release: 0.8
+@link       http://libemoji.com/html_emoji
+
+h3. yak
+
+@author     Kenichirou Oyama 
+@copyright  2010 101000code/101000LAB
+@license    http://www.opensource.org/licenses/mit-license.php  MIT License
+@version    alpha
