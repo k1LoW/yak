@@ -10,7 +10,7 @@ h2. Features
 h3. レンダリングエンジンにHTML_Emojiを使用
 
 絵文字を含むビューのレンダリングエンジンに処理が高速な "HTML_Emoji":http://libemoji.com/ を採用しています。
-YakはHTML_EmojiのCakePHP用ラッパーであると言っても過言ではありません。
+Yakは "HTML_Emoji":http://libemoji.com/ のCakePHP用ラッパーであると言っても過言ではありません。
 
 h3. シンプル
 
