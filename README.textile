@@ -43,15 +43,15 @@ h2. Lisence
 
 h3. HTML_Emoji
 
-@author     revulo <revulon@gmail.com>
-@copyright  2009-2010 revulo
-@license    http://www.opensource.org/licenses/mit-license.php  MIT License
-@version    Release: 0.8
-@link       http://libemoji.com/html_emoji
+author     revulo <revulon@gmail.com>
+copyright  2009-2010 revulo
+license    http://www.opensource.org/licenses/mit-license.php  MIT License
+version    Release: 0.8
+link       http://libemoji.com/html_emoji
 
 h3. yak
 
-@author     Kenichirou Oyama 
-@copyright  2010 101000code/101000LAB
-@license    http://www.opensource.org/licenses/mit-license.php  MIT License
-@version    alpha
+author     Kenichirou Oyama 
+copyright  2010 101000code/101000LAB
+license    http://www.opensource.org/licenses/mit-license.php  MIT License
+version    alpha
