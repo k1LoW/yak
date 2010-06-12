@@ -64,6 +64,17 @@ class YakComponent extends Object {
      * @return
      */
     function filter($text, $filters = 'input') {
+        if ($filters === 'input') {
+            if ($this->emoji->isSjisCarrier()) {
+                if (mb_detect_encoding($text) === 'UTF-8' || mb_detect_encoding($text) === 'ASCII') {
+                    return $this->emoji->filter($text, array('HexToUtf8', 'DecToUtf8'));
+                }
+                return $this->emoji->filter($text, 'input');
+            } else {
+                // UTF-8
+                return $this->emoji->filter($text, 'input');
+            }
+        }
         return $this->emoji->filter($text, $filters);
     }
 
