@@ -1,4 +1,4 @@
-h1. Yet Another Ktai plugin for CakePHP
+h1. Yak: Yet Another Ktai plugin for CakePHP
 
 h2. Alpha Status
 
@@ -14,6 +14,7 @@ Yakは "HTML_Emoji":http://libemoji.com/ のCakePHP用ラッパーであると�
 
 h3. シンプル
 
+機能は絵文字を含めた表示とセッション管理のみです。それ以外も必要になったら作ります。
 ソースコードはUTF-8固定、セッション使用固定、それ以外も "HTML_Emoji":http://libemoji.com/ の制約に沿うことで、非常にシンプルな使用ができることを目指しています。
 *"Do It Yourself!"* と言いたいところですが、本当のところはわかりません。
 
@@ -31,13 +32,14 @@ class AppController extends Controller {
 }
 </pre>
 
-また、現在は画像ファイルをコミットしていませんので、こちらもapp/plugins/yak/webroot/img/に展開してください。
+また、絵文字表示に使用する "画像ファイル":http://libemoji.com/download はコミットしていませんので、こちらもapp/plugins/yak/webroot/img/に展開してください。
+
 
 h2. FAQ
 
 h3. 動かないんだけど
 
-動きません。ちなみに動かないのは "HTML_Emoji":http://libemoji.com/ のせいではありません。
+動かないかもしれません。ちなみに動かないのは "HTML_Emoji":http://libemoji.com/ のせいではありません。
 
 h2. Lisence
 
