@@ -32,7 +32,7 @@ class AppController extends Controller {
 }
 </pre>
 
-POSTした絵文字をDBに保存したいときにはphp.iniや.htaccessで @mbstring.http_input=pass@ としてください(そうでない場合は絵文字部分が文字化けします)
+POSTした絵文字をDBに保存したいときにはphp.iniや.htaccessで @mbstring.http_input=pass@ としてください (そうでない場合は特にDocomo以外の場合絵文字部分が文字化けします)
 また、絵文字表示に使用する "画像ファイル":http://libemoji.com/download はコミットしていませんので、こちらもapp/plugins/yak/webroot/img/に展開してください。
 
 
