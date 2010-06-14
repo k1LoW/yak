@@ -34,18 +34,18 @@ class YakComponent extends Object {
         $controller->helpers[] = 'Yak.Yak';
 
         if (!empty($controller->data)) {
-            $controller->data = $this->recursive_filter($controller->data, 'input');
+            $controller->data = $this->recursiveFilter($controller->data, 'input');
         }
     }
 
     /**
-     * recursive_filter
+     * recursiveFilter
      * description
      *
      * @param $data
      * @return
      */
-    function recursive_filter($data, $filters = 'input'){
+    function recursiveFilter($data, $filters = 'input'){
         if(is_array($data)){
             foreach($data as $key => $value){
                 $data[$key]= $this->recursive_filter($value, $filters);
