@@ -41,7 +41,21 @@ class YakHelper extends AppHelper {
             header('Content-Type: text/html; charset=UTF-8');
         }
 
-        $view->output = $this->emoji->filter($view->output, array('DecToUtf8', 'HexToUtf8', 'output'));
+        if (empty($this->data) || $this->emoji->isMobile()) {
+            $view->output = $this->emoji->filter($view->output, array('DecToUtf8', 'HexToUtf8', 'output'));
+        } else {
+            // for PC form
+            $outputArray = preg_split('/(value ?= ?[\'"][^"]+[\'"])|(<textarea[^>]+>[^<]+<\/textarea>)/',  $view->output, null, PREG_SPLIT_DELIM_CAPTURE);
+            $output = '';
+            foreach ($outputArray as $key => $value) {
+                if (!preg_match('/value ?= ?[\'"]([^"]+)[\'"]|<textarea[^>]+>([^<]+)<\/textarea>/',  $value)) {
+                    $output .= $this->emoji->filter($value, array('DecToUtf8', 'HexToUtf8', 'output'));
+                } else {
+                    $output .= $value;
+                }
+            }
+            $view->output = $output;
+        }
     }
 
-}
+  }
