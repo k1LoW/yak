@@ -41,7 +41,7 @@ class YakHelper extends AppHelper {
             header('Content-Type: text/html; charset=UTF-8');
         }
 
-        if (!is_null($view)) {
+        if (isset($view->output)) {
             if (empty($this->data) || $this->emoji->isMobile()) {
                 $view->output = $this->emoji->filter($view->output, array('DecToUtf8', 'HexToUtf8', 'output'));
             } else {
