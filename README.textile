@@ -1,5 +1,7 @@
 h1. Yak: Yet Another Ktai plugin for CakePHP
 
+!http://github.com/k1LoW/yak/raw/master/yak.png!
+
 h2. Alpha Status
 
 このプラグインはまだアルファバージョンです。
