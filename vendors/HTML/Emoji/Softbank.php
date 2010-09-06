@@ -115,7 +115,7 @@ class HTML_Emoji_Softbank extends HTML_Emoji
         $text = mb_convert_encoding($text, 'UTF-8', 'SJIS');
         mb_substitute_character($backup);
 
-        $pattern  = '/BAD\+([0-9A-F]{4})/';
+        $pattern  = '/(BAD|JIS)\+([0-9A-F]{4})/';
         $callback = array($this, '_fallbackSjisToUtf8');
         $text     = preg_replace_callback($pattern, $callback, $text);
 
@@ -132,32 +132,38 @@ class HTML_Emoji_Softbank extends HTML_Emoji
      */
     function _fallbackSjisToUtf8($matches)
     {
-        $sjis = hexdec($matches[1]);
-        $high = $sjis >> 8;
-        $low  = $sjis & 0xFF;
+        if ($matches[1] === 'JIS') {
+            $jis  = "\x1B\x24\x42" . pack('H*', $matches[2]);
+            $sjis = mb_convert_encoding($jis, 'SJIS-win', 'JIS');
+            return mb_convert_encoding($sjis, 'UTF-8', 'SJIS-win');
+        } else {
+            $sjis = hexdec($matches[2]);
+            $high = $sjis >> 8;
+            $low  = $sjis & 0xFF;
 
-        if ($low > 0xA0) {
-            if ($high === 0xF7 && $low <= 0xFA) {
-                $unicode = "\xE2" . chr($low - 0xA0);
-            } else if ($high === 0xF9 && $low <= 0xED) {
-                $unicode = "\xE3" . chr($low - 0xA0);
-            } else if ($high === 0xFB && $low <= 0xDE) {
-                $unicode = "\xE5" . chr($low - 0xA0);
+            if ($low > 0xA0) {
+                if ($high === 0xF7 && $low <= 0xFA) {
+                    $unicode = "\xE2" . chr($low - 0xA0);
+                } else if ($high === 0xF9 && $low <= 0xED) {
+                    $unicode = "\xE3" . chr($low - 0xA0);
+                } else if ($high === 0xFB && $low <= 0xDE) {
+                    $unicode = "\xE5" . chr($low - 0xA0);
+                }
+            } else if ($low > 0x40) {
+                if ($low >= 0x80) {
+                    --$low;
+                }
+                if ($high === 0xF7 && $low < 0x9B) {
+                    $unicode = "\xE1" . chr($low - 0x40);
+                } else if ($high === 0xF9 && $low < 0x9B) {
+                    $unicode = "\xE0" . chr($low - 0x40);
+                } else if ($high === 0xFB && $low < 0x8D) {
+                    $unicode = "\xE4" . chr($low - 0x40);
+                }
             }
-        } else if ($low > 0x40) {
-            if ($low >= 0x80) {
-                --$low;
-            }
-            if ($high === 0xF7 && $low < 0x9B) {
-                $unicode = "\xE1" . chr($low - 0x40);
-            } else if ($high === 0xF9 && $low < 0x9B) {
-                $unicode = "\xE0" . chr($low - 0x40);
-            } else if ($high === 0xFB && $low < 0x8D) {
-                $unicode = "\xE4" . chr($low - 0x40);
-            }
+
+            return mb_convert_encoding($unicode, 'UTF-8', 'UCS-2');
         }
-
-        return mb_convert_encoding($unicode, 'UTF-8', 'UCS-2');
     }
 
     /**
