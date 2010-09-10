@@ -5,6 +5,16 @@ class YakComponent extends Object {
     var $emoji;
 
     /**
+     * __call
+     *
+     * $methodName, $args
+     * @return
+     */
+    function __call($methodName, $args){
+        call_user_func(array($this->emoji, $methodName), $args);
+    }
+
+    /**
      * initialize
      *
      * @param &$controller
@@ -85,7 +95,7 @@ class YakComponent extends Object {
      * @return $url
      */
     function generateRedirectUrl($url){
-        if ($this->isDocomo()) {
+        if ($this->emoji->getCarrier() == 'docomo') {
             if(is_array($url)) {
                 if(!isset($url['?'])) {
                     $url['?'] = array();
@@ -102,18 +112,5 @@ class YakComponent extends Object {
             return $url;
         }
         return $url;
-    }
-
-    /**
-     * isDocomo
-     *
-     * @return
-     */
-    function isDocomo(){
-        $user_agent = $_SERVER['HTTP_USER_AGENT'];
-        if (strpos($user_agent, 'DoCoMo') !== false) {
-            return true;
-        }
-        return false;
     }
 }
