@@ -25,7 +25,7 @@ class YakComponent extends Object {
         $this->params = $controller->params;
 
         $this->emoji = HTML_Emoji::getInstance();
-        $this->emoji->setImageUrl(Router::url('/') . 'yaktai/img/');
+        $this->emoji->setImageUrl(Router::url('/') . 'yak/img/');
 
         if (!Configure::read('Yak.save')) {
             Configure::write('Yak.save', Configure::read('Session.save'));
