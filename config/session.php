@@ -4,13 +4,15 @@
    *
    * @return Boolean
    */
-function isDocomo(){
-    $user_agent = $_SERVER['HTTP_USER_AGENT'];
-    if (strpos($user_agent, 'DoCoMo') !== false) {
-        return true;
+if (!function_exists('isDocomo')) {
+    function isDocomo(){
+        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        if (strpos($user_agent, 'DoCoMo') !== false) {
+            return true;
+        }
+        return false;
     }
-    return false;
-  }
+}
 
 switch (Configure::read('Yak.save')) {
 case 'cake':
