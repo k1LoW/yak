@@ -11,7 +11,7 @@ class YakComponent extends Object {
      * @return
      */
     function __call($methodName, $args){
-        call_user_func(array($this->emoji, $methodName), $args);
+        return call_user_func(array($this->emoji, $methodName), $args);
     }
 
     /**
