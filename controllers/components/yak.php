@@ -1,6 +1,6 @@
 <?php
   // HTML_Emoji
-require_once(APP . DS . 'plugins/yak/vendors/HTML/Emoji.php');
+App::import('vendor', 'Yak.HTML_Emoji', array('file' => 'HTML' . DS . 'Emoji.php')); 
 class YakComponent extends Object {
     var $emoji;
 
@@ -30,8 +30,21 @@ class YakComponent extends Object {
         if (!Configure::read('Yak.save')) {
             Configure::write('Yak.save', Configure::read('Session.save'));
         }
-
-        Configure::write('Session.save', '../plugins/yak/config/session');
+        
+        $path = '../plugins/yak/config/session';
+        do{
+          $config = CONFIGS . $path . '.php';
+          if (is_file($config)) {
+          	break ;
+          }
+          $path = '../../plugins/yak/config/session';
+          $config = CONFIGS . $path . '.php';
+          if (is_file($config)) {
+            break ;
+          }
+          trigger_error(__("Can't find yak session file.", true), E_USER_ERROR);
+        }while(false);
+        Configure::write('Session.save', $path);
     }
 
     /**
