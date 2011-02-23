@@ -97,8 +97,9 @@ if (isDocomo()) {
     ini_set('session.use_cookies', 0);
     ini_set('session.use_only_cookies', 0);
     ini_set('session.name', Configure::read('Session.cookie'));
+    ini_set('url_rewriter.tags', 'a=href,area=href,frame=src,input=src,form=fakeentry,fieldset=');
     ini_set('session.use_trans_sid', 1);
     Configure::write('Security.level', 'middle');
 }
 
-Configure::write('Security.save', Configure::read('Yak.save'));
+Configure::write('Session.save', Configure::read('Yak.save'));
