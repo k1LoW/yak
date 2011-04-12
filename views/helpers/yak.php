@@ -14,6 +14,16 @@ class YakHelper extends AppHelper {
     }
 
     /**
+     * __call
+     *
+     * @param $methodName, $args
+     * @return
+     */
+    function __call($methodName, $args){
+        return call_user_func_array(array($this->emoji, $methodName), $args);
+    }
+
+    /**
      * charset
      *
      * @return
