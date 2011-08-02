@@ -5,7 +5,7 @@
  *
  * PHP versions 4 and 5
  *
- * Copyright (c) 2009-2010 revulo
+ * Copyright (c) 2009-2011 revulo
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -28,7 +28,7 @@
  * @category   HTML
  * @package    HTML_Emoji
  * @author     revulo <revulon@gmail.com>
- * @copyright  2009-2010 revulo
+ * @copyright  2009-2011 revulo
  * @license    http://www.opensource.org/licenses/mit-license.php  MIT License
  * @version    Release: 0.8
  * @link       http://libemoji.com/html_emoji
@@ -42,7 +42,7 @@
  * @category   HTML
  * @package    HTML_Emoji
  * @author     revulo <revulon@gmail.com>
- * @copyright  2009-2010 revulo
+ * @copyright  2009-2011 revulo
  * @license    http://www.opensource.org/licenses/mit-license.php  MIT License
  * @version    Release: 0.8
  * @link       http://libemoji.com/html_emoji
@@ -120,6 +120,7 @@ class HTML_Emoji
             'au'       => 'au',
             'kddi'     => 'au',
             'ezweb'    => 'au',
+            'aumail'   => 'aumail',
             'softbank' => 'softbank',
             'disney'   => 'softbank',
             'vodafone' => 'softbank',
@@ -311,7 +312,7 @@ class HTML_Emoji
     /**
      * Return the carrier name.
      *
-     * 'docomo', 'au', 'softbank', 'jphone', 'iphone' or 'pc'.
+     * 'docomo', 'au', 'aumail', 'softbank', 'jphone', 'iphone' or 'pc'.
      *
      * @return string
      */
@@ -338,6 +339,34 @@ class HTML_Emoji
     function getRegexOthers()
     {
         return $this->_regexOthers;
+    }
+
+    /**
+     * Wrapper function for mb_decode_numericentity().
+     *
+     * mb_decode_numericentity() function has a bug that it deletes a
+     * trailing ampersand if the input string ends with an odd number of
+     * ampersands.
+     * @link http://bugs.php.net/bug.php?id=40685
+     *
+     * @param  string  $str
+     * @param  array   $convmap
+     * @param  string  $encoding
+     * @return string
+     */
+    function decodeNumericentity($str, $convmap, $encoding)
+    {
+        $length = strlen($str);
+
+        if ($str[$length - 1] === '&') {
+            $str[$length - 1] = ' ';
+            $str = mb_decode_numericentity($str, $convmap, $encoding);
+            $length = strlen($str);
+            $str[$length - 1] = '&';
+            return $str;
+        } else {
+            return mb_decode_numericentity($str, $convmap, $encoding);
+        }
     }
 
     /**
@@ -440,10 +469,14 @@ class HTML_Emoji
      */
     function _initTranslationTable()
     {
+        $parents = array(
+            'aumail' => 'au',
+            'iphone' => 'softbank',
+            'jphone' => 'softbank',
+        );
+
         $carrier = $this->getCarrier();
-        if ($carrier === 'iphone' || $carrier === 'jphone') {
-            $carrier = 'softbank';
-        }
+        $carrier = isset($parents[$carrier]) ? $parents[$carrier] : $carrier;
 
         if ($carrier === 'pc') {
             $filename = 'Default.php';

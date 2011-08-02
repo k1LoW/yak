@@ -44,14 +44,14 @@ h2. Lisence
 h3. HTML_Emoji
 
 Author : revulo <revulon@gmail.com>
-Copyright : 2009-2010 revulo
+Copyright : 2009-2011 revulo
 License : http://www.opensource.org/licenses/mit-license.php  MIT License
-Version : Release: 0.8.1
+Version : Release: 0.8.3
 Link : http://libemoji.com/html_emoji
 
 h3. Yak
 
 Author : Kenichirou Oyama 
-Copyright : 2010 101000code/101000LAB
+Copyright : 2010-2011 101000code/101000LAB
 License : http://www.opensource.org/licenses/mit-license.php  MIT License
 Version : alpha

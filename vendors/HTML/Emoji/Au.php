@@ -5,7 +5,7 @@
  *
  * PHP versions 4 and 5
  *
- * Copyright (c) 2009-2010 revulo
+ * Copyright (c) 2009-2011 revulo
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -28,7 +28,7 @@
  * @category   HTML
  * @package    HTML_Emoji
  * @author     revulo <revulon@gmail.com>
- * @copyright  2009-2010 revulo
+ * @copyright  2009-2011 revulo
  * @license    http://www.opensource.org/licenses/mit-license.php  MIT License
  * @version    Release: 0.8
  * @link       http://libemoji.com/html_emoji
@@ -42,7 +42,7 @@
  * @category   HTML
  * @package    HTML_Emoji
  * @author     revulo <revulon@gmail.com>
- * @copyright  2009-2010 revulo
+ * @copyright  2009-2011 revulo
  * @license    http://www.opensource.org/licenses/mit-license.php  MIT License
  * @version    Release: 0.8
  * @link       http://libemoji.com/html_emoji
@@ -129,8 +129,7 @@ class HTML_Emoji_Au extends HTML_Emoji
     {
         $text = mb_encode_numericentity($text, $this->_sjismap, 'SJIS-win');
         $text = mb_convert_encoding($text, 'UTF-8', 'SJIS-win');
-        $text = mb_decode_numericentity($text, $this->_utf8map, 'UTF-8');
-        return $text;
+        return $this->decodeNumericentity($text, $this->_utf8map, 'UTF-8');
     }
 
     /**
@@ -143,8 +142,7 @@ class HTML_Emoji_Au extends HTML_Emoji
     {
         $text = mb_encode_numericentity($text, $this->_utf8map, 'UTF-8');
         $text = mb_convert_encoding($text, 'SJIS-win', 'UTF-8');
-        $text = mb_decode_numericentity($text, $this->_sjismap, 'SJIS-win');
-        return $text;
+        return $this->decodeNumericentity($text, $this->_sjismap, 'SJIS-win');
     }
 
     /**

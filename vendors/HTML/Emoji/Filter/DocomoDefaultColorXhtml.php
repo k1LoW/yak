@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Convert UTF-8 emojis of other carriers to their alternatives.
+ * Display UTF-8 emojis of NTT docomo in the default color.
  *
  * PHP versions 4 and 5
  *
@@ -34,12 +34,14 @@
  * @link       http://libemoji.com/html_emoji
  */
 
-require_once dirname(__FILE__) . '/Abstract.php';
+require_once dirname(__FILE__) . '/DocomoDefaultColor.php';
 
 /**
- * HTML_Emoji_Filter_Carrier
+ * HTML_Emoji_Filter_DocomoDefaultColorXhtml
  *
- * A filter converting UTF-8 emojis of other carriers to their alternatives.
+ * In NTT docomo mobile phones, emoji is treated as a text character and
+ * its color is influenced by style settings. This filter forces emojis
+ * to be displayed in the default color.
  *
  * @category   HTML
  * @package    HTML_Emoji
@@ -49,16 +51,25 @@ require_once dirname(__FILE__) . '/Abstract.php';
  * @version    Release: 0.8
  * @link       http://libemoji.com/html_emoji
  */
-class HTML_Emoji_Filter_Carrier extends HTML_Emoji_Filter_Abstract
+class HTML_Emoji_Filter_DocomoDefaultColorXhtml extends HTML_Emoji_Filter_DocomoDefaultColor
 {
     /**
-     * Call HTML_Emoji::convertCarrier() method.
+     * Callback function called by the filter() method.
      *
-     * @param  string  $text
+     * This function surrounds a UTF-8 emoji of NTT docomo with
+     * <span style="color: ..."> and </span> tags.
+     *
+     * @param  array   $matches
      * @return string
      */
-    function filter($text)
+    function _colorDocomoEmoji($matches)
     {
-        return $this->_emoji->convertCarrier($text);
+        $utf8 = $matches[0];
+
+        if (isset($this->_colorTable[$utf8]) === true) {
+            $color = $this->_colorTable[$utf8];
+            return '<span style="color:' . $color . '">' . $utf8 . '</span>';
+        }
+        return $utf8;
     }
 }

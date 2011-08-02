@@ -5,7 +5,7 @@
  *
  * PHP versions 4 and 5
  *
- * Copyright (c) 2009-2010 revulo
+ * Copyright (c) 2009-2011 revulo
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -28,7 +28,7 @@
  * @category   HTML
  * @package    HTML_Emoji
  * @author     revulo <revulon@gmail.com>
- * @copyright  2009-2010 revulo
+ * @copyright  2009-2011 revulo
  * @license    http://www.opensource.org/licenses/mit-license.php  MIT License
  * @version    Release: 0.8
  * @link       http://libemoji.com/html_emoji
@@ -44,7 +44,7 @@
  * @category   HTML
  * @package    HTML_Emoji
  * @author     revulo <revulon@gmail.com>
- * @copyright  2009-2010 revulo
+ * @copyright  2009-2011 revulo
  * @license    http://www.opensource.org/licenses/mit-license.php  MIT License
  * @version    Release: 0.8
  * @link       http://libemoji.com/html_emoji
@@ -343,8 +343,8 @@ class HTML_Emoji_Filter_DocomoDefaultColor
     /**
      * Callback function called by the filter() method.
      *
-     * This function surrounds UTF-8 emoji of NTT docomo with
-     * <font color="..."> or <span style="color: ..."> HTML tag.
+     * This function surrounds a UTF-8 emoji of NTT docomo with
+     * <font> or <span> tags.
      *
      * @param  array   $matches
      * @return string

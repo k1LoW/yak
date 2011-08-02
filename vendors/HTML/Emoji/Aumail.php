@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Convert UTF-8 emojis of other carriers to their alternatives.
+ * Convert emojis for use with au mobile phone.
  *
  * PHP versions 4 and 5
  *
@@ -34,12 +34,12 @@
  * @link       http://libemoji.com/html_emoji
  */
 
-require_once dirname(__FILE__) . '/Abstract.php';
+require_once dirname(__FILE__) . '/Au.php';
 
 /**
- * HTML_Emoji_Filter_Carrier
+ * HTML_Emoji_Aumail
  *
- * A filter converting UTF-8 emojis of other carriers to their alternatives.
+ * Extended HTML_Emoji class for au e-mail.
  *
  * @category   HTML
  * @package    HTML_Emoji
@@ -49,16 +49,44 @@ require_once dirname(__FILE__) . '/Abstract.php';
  * @version    Release: 0.8
  * @link       http://libemoji.com/html_emoji
  */
-class HTML_Emoji_Filter_Carrier extends HTML_Emoji_Filter_Abstract
+class HTML_Emoji_Aumail extends HTML_Emoji_Au
 {
     /**
-     * Call HTML_Emoji::convertCarrier() method.
+     * Convert character encoding from UTF-8 to Shift_JIS.
      *
      * @param  string  $text
      * @return string
      */
-    function filter($text)
+    function _convertUtf8ToSjis($text)
     {
-        return $this->_emoji->convertCarrier($text);
+        $text = mb_encode_numericentity($text, $this->_utf8map, 'UTF-8');
+        $text = mb_convert_encoding($text, 'SJIS-win', 'UTF-8');
+
+        $pattern  = '/&#(6\d{4});/';
+        $callback = array($this, '_convertDecimalToSjis');
+        $text = preg_replace_callback($pattern, $callback, $text);
+
+        return $text;
+    }
+
+    /**
+     * Callback function called by _convertUtf8ToSjis() method.
+     *
+     * This function converts Shift_JIS decimal code to Shift_JIS binary data.
+     *
+     * @param  array   $matches
+     * @return string
+     */
+    function _convertDecimalToSjis($matches)
+    {
+        $num = intval($matches[1]);
+        if ($num >= 0xF340) {
+            if ($num <= 0xF493) {
+                return pack('n', $num - 0x0600);
+            } else if ($num <= 0xF7FC) {
+                return pack('n', $num - 0x0B00);
+            }
+        }
+        return $matches[0];
     }
 }
