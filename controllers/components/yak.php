@@ -58,7 +58,9 @@ class YakComponent extends Object {
     function recursiveFilter($data, $filters = 'input'){
         if(is_array($data)){
             foreach($data as $key => $value){
-                $data[$key]= $this->recursiveFilter($value, $filters);
+                if (!empty($value)) {
+                    $data[$key]= $this->recursiveFilter($value, $filters);
+                }
             }
         }else{
             $data = $this->filter($data, $filters);
