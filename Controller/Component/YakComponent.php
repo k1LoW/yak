@@ -5,7 +5,7 @@ App::uses('Component', 'Controller');
 App::uses('CakeSession', 'Model/Datasource');
 
 class YakComponent extends Component {
-    var $emoji;
+    private $emoji;
 
     /**
      * __construct

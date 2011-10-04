@@ -76,4 +76,4 @@ class YakHelper extends AppHelper {
         }
     }
 
-  }
+}
