@@ -1,16 +1,31 @@
 <?php
-  // HTML_Emoji
-App::import('vendor', 'Yak.HTML_Emoji', array('file' => 'HTML' . DS . 'Emoji.php')); 
-class YakComponent extends Object {
+// HTML_Emoji
+App::import('Vendor', 'Yak.HTML_Emoji', array('file' => 'HTML' . DS . 'Emoji.php'));
+App::uses('Component', 'Controller');
+App::uses('CakeSession', 'Model/Datasource');
+
+class YakComponent extends Component {
     var $emoji;
+
+    /**
+     * __construct
+     *
+     * @param ComponentCollection $collection instance for the ComponentCollection
+     * @param array $settings Settings to set to the component
+     * @return void
+     */
+    public function __construct(ComponentCollection $collection, $settings  =  array()) {
+        $this->controller = $collection->getController();
+        parent::__construct($collection, $settings);
+    }
 
     /**
      * __call
      *
      * $methodName, $args
-     * @return
+     * @returno
      */
-    function __call($methodName, $args){
+    public function __call($methodName, $args){
         return call_user_func(array($this->emoji, $methodName), $args);
     }
 
@@ -18,33 +33,30 @@ class YakComponent extends Object {
      * initialize
      *
      * @param &$controller
-     * @param $settings
      * @return
      */
-    function initialize(&$controller, $settings = array()) {
-        $this->params = $controller->params;
+    public function initialize($controller) {
+        $this->params = $this->controller->request->params;
 
         $this->emoji = HTML_Emoji::getInstance();
         $this->emoji->setImageUrl(Router::url('/') . 'yak/img/');
-
-        if (!Configure::read('Yak.save')) {
-            Configure::write('Yak.save', Configure::read('Session.save'));
+        if (!Configure::read('Yak.Session')) {
+            Configure::write('Yak.Session', Configure::read('Session'));
         }
-        
-        $path = '../plugins/yak/config/session';
-        do{
-          $config = CONFIGS . $path . '.php';
-          if (is_file($config)) {
-          	break ;
-          }
-          $path = '../../plugins/yak/config/session';
-          $config = CONFIGS . $path . '.php';
-          if (is_file($config)) {
-            break ;
-          }
-          trigger_error(__("Can't find yak session file.", true), E_USER_ERROR);
-        }while(false);
-        Configure::write('Session.save', $path);
+        if ($this->emoji->getCarrier() === 'docomo') {
+            Configure::write('Yak.Session.ini',
+                             Set::merge(Configure::read('Yak,Session.ini'),
+                                        array('session.use_cookies' => 0,
+                                              'session.use_only_cookies' => 0,
+                                              'session.name' => Configure::read('Session.cookie'),
+                                              'url_rewriter.tags' => 'a=href,area=href,frame=src,input=src,form=fakeentry,fieldset=',
+                                              'session.use_trans_sid' => 1,
+                                              )));
+            Configure::write('Security.level', 'middle');
+            Configure::write('Session', Configure::read('Yak.Session'));
+            // auto start
+            CakeSession::start();
+        }
     }
 
     /**
@@ -53,22 +65,22 @@ class YakComponent extends Object {
      * @param &$controller
      * @return
      */
-    function startup(&$controller) {
+    public function startup($controller) {
         $controller->helpers[] = 'Yak.Yak';
 
-        if (!empty($controller->data)) {
-            $controller->data = $this->recursiveFilter($controller->data, 'input');
+        if (!empty($controller->request->data)) {
+            $controller->request->data = $this->recursiveFilter($controller->request->data, 'input');
         }
     }
 
     /**
      * recursiveFilter
-     * description
      *
      * @param $data
+     * @param $filter
      * @return
      */
-    function recursiveFilter($data, $filters = 'input'){
+    public function recursiveFilter($data, $filters = 'input'){
         if(is_array($data)){
             foreach($data as $key => $value){
                 if (!empty($value)) {
@@ -83,12 +95,11 @@ class YakComponent extends Object {
 
     /**
      * filter
-     * description
      *
      * @param
      * @return
      */
-    function filter($text, $filters = 'input') {
+    public function filter($text, $filters = 'input') {
         if ($filters === 'input') {
             if ($this->emoji->isSjisCarrier()) {
                 if (mb_detect_encoding($text) === 'UTF-8' || mb_detect_encoding($text) === 'ASCII') {
@@ -109,7 +120,7 @@ class YakComponent extends Object {
      * @param $url
      * @return $url
      */
-    function generateRedirectUrl($url){
+    public function generateRedirectUrl($url){
         if ($this->emoji->getCarrier() == 'docomo') {
             if(is_array($url)) {
                 if(!isset($url['?'])) {

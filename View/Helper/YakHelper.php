@@ -1,4 +1,6 @@
 <?php
+App::uses('AppHelper', 'View/Helper');
+
 class YakHelper extends AppHelper {
 
     var $helpers = array('Html');
@@ -8,7 +10,8 @@ class YakHelper extends AppHelper {
      *
      * @return
      */
-    function __construct(){
+    function __construct(View $View, $settings = array()) {
+        parent::__construct($View, $settings);
         $this->emoji = HTML_Emoji::getInstance();
         $this->emoji->setImageUrl($this->url('/') . 'yak/img/');
     }
@@ -41,9 +44,8 @@ class YakHelper extends AppHelper {
      *
      * @return
      */
-    function afterLayout(){
-        parent::afterLayout();
-        $view =& ClassRegistry::getObject('view');
+    function afterLayout($layoutFile){
+        parent::afterLayout($layoutFile);
 
         if ($this->emoji->isMobile()) {
             if ($this->emoji->isSjisCarrier()) {
@@ -55,12 +57,12 @@ class YakHelper extends AppHelper {
             header('Content-Type: text/html; charset=UTF-8');
         }
 
-        if (isset($view->output)) {
-            if (empty($this->data) || $this->emoji->isMobile()) {
-                $view->output = $this->emoji->filter($view->output, array('DecToUtf8', 'HexToUtf8', 'output'));
+        if (isset($this->_View->output)) {
+            if (empty($this->request->data) || $this->emoji->isMobile()) {
+                $this->_View->output = $this->emoji->filter($this->_View->output, array('DecToUtf8', 'HexToUtf8', 'output'));
             } else {
                 // for PC form
-                $outputArray = preg_split('/(value ?= ?[\'"][^"]+[\'"])|(<textarea[^>]+>[^<]+<\/textarea>)/',  $view->output, null, PREG_SPLIT_DELIM_CAPTURE);
+                $outputArray = preg_split('/(value ?= ?[\'"][^"]+[\'"])|(<textarea[^>]+>[^<]+<\/textarea>)/',  $this->_View->output, null, PREG_SPLIT_DELIM_CAPTURE);
                 $output = '';
                 foreach ($outputArray as $key => $value) {
                     if (!preg_match('/value ?= ?[\'"]([^"]+)[\'"]|<textarea[^>]+>([^<]+)<\/textarea>/',  $value)) {
@@ -69,7 +71,7 @@ class YakHelper extends AppHelper {
                         $output .= $value;
                     }
                 }
-                $view->output = $output;
+                $this->_View->output = $output;
             }
         }
     }
