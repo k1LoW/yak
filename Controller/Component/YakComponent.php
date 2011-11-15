@@ -52,7 +52,7 @@ class YakComponent extends Component {
                                               'url_rewriter.tags' => 'a=href,area=href,frame=src,input=src,form=fakeentry,fieldset=',
                                               'session.use_trans_sid' => 1,
                                               )));
-            Configure::write('Security.level', 'middle');
+            Configure::write('Security.level', 'medium');
             Configure::write('Session', Configure::read('Yak.Session'));
             // auto start
             CakeSession::start();
