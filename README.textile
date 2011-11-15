@@ -17,7 +17,7 @@ h3. シンプル
 
 h3. CakePHPに特化
 
-app/pluginsにyakを設置し、app_contoller.phpに以下のように記述するだけ設定完了です。
+PHP5.2.x以下のデフォルト設定ではapp/pluginsにyakを設置し、app_contoller.phpに以下のように記述するだけ設定完了です。
 
 <pre>
 class AppController extends Controller {
@@ -27,6 +27,12 @@ class AppController extends Controller {
         parent::redirect($this->Yak->generateRedirectUrl($url), $status, $exit);
     }
 }
+</pre>
+
+PHP5.3以上の場合は上記に加えてbootstrap.phpに下記のコードを記述してください。
+
+<pre>
+Configure::write('Session.save', '../plugins/yak/config/session');
 </pre>
 
 POSTした絵文字をDBに保存したいときにはphp.iniや.htaccessで @mbstring.http_input=pass@ としてください (そうでない場合は特にDocomo以外の場合絵文字部分が文字化けします)
