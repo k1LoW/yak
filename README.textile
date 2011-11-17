@@ -17,7 +17,7 @@ h3. シンプル
 
 h3. CakePHPに特化
 
-PHP5.2.x以下のデフォルト設定ではapp/pluginsにyakを設置し、app_contoller.phpに以下のように記述するだけ設定完了です。
+app/pluginsにyakを設置し、app_contoller.phpに以下のように記述するだけ設定完了です。
 
 <pre>
 class AppController extends Controller {
@@ -29,7 +29,7 @@ class AppController extends Controller {
 }
 </pre>
 
-PHP5.3以上の場合は上記に加えてbootstrap.phpに下記のコードを記述してください。
+BehaviorなどでSessionを使うなど、YakComponent::initialize()よりsession_start()が早い場合は、上記に加えてbootstrap.phpに下記のコードを記述してください。
 
 <pre>
 Configure::write('Session.save', '../plugins/yak/config/session');

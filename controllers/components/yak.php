@@ -1,6 +1,6 @@
 <?php
   // HTML_Emoji
-App::import('vendor', 'Yak.HTML_Emoji', array('file' => 'HTML' . DS . 'Emoji.php')); 
+App::import('vendor', 'Yak.HTML_Emoji', array('file' => 'HTML' . DS . 'Emoji.php'));
 class YakComponent extends Object {
     var $emoji;
 
@@ -30,7 +30,7 @@ class YakComponent extends Object {
         if (!Configure::read('Yak.save')) {
             Configure::write('Yak.save', Configure::read('Session.save'));
         }
-        
+
         $path = '../plugins/yak/config/session';
         do{
           $config = CONFIGS . $path . '.php';
