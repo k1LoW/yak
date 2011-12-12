@@ -1,8 +1,9 @@
 <?php
-  // HTML_Emoji
-App::import('vendor', 'Yak.HTML_Emoji', array('file' => 'HTML' . DS . 'Emoji.php'));
+// HTML_Emoji
+App::import('Vendor', 'Yak.HTML_Emoji', array('file' => 'HTML' . DS . 'Emoji.php'));
 class YakComponent extends Object {
     var $emoji;
+    var $settings = array('enabled' => true);
 
     /**
      * __call
@@ -22,6 +23,7 @@ class YakComponent extends Object {
      * @return
      */
     function initialize(&$controller, $settings = array()) {
+        $this->settings = am($this->settings, $settings);
         $this->params = $controller->params;
 
         $this->emoji = HTML_Emoji::getInstance();
@@ -31,20 +33,22 @@ class YakComponent extends Object {
             Configure::write('Yak.save', Configure::read('Session.save'));
         }
 
-        $path = '../plugins/yak/config/session';
-        do{
-          $config = CONFIGS . $path . '.php';
-          if (is_file($config)) {
-          	break ;
-          }
-          $path = '../../plugins/yak/config/session';
-          $config = CONFIGS . $path . '.php';
-          if (is_file($config)) {
-            break ;
-          }
-          trigger_error(__("Can't find yak session file.", true), E_USER_ERROR);
-        }while(false);
-        Configure::write('Session.save', $path);
+        if ($this->settings['enabled']) {
+            $path = '../plugins/yak/config/session';
+            do{
+                $config = CONFIGS . $path . '.php';
+                if (is_file($config)) {
+                    break ;
+                }
+                $path = '../../plugins/yak/config/session';
+                $config = CONFIGS . $path . '.php';
+                if (is_file($config)) {
+                    break ;
+                }
+                trigger_error(__("Can't find yak session file.", true), E_USER_ERROR);
+            }while(false);
+            Configure::write('Session.save', $path);
+        }
     }
 
     /**
@@ -54,10 +58,12 @@ class YakComponent extends Object {
      * @return
      */
     function startup(&$controller) {
-        $controller->helpers[] = 'Yak.Yak';
+        if ($this->settings['enabled']) {
+            $controller->helpers[] = 'Yak.Yak';
 
-        if (!empty($controller->data)) {
-            $controller->data = $this->recursiveFilter($controller->data, 'input');
+            if (!empty($controller->data)) {
+                $controller->data = $this->recursiveFilter($controller->data, 'input');
+            }
         }
     }
 
