@@ -101,5 +101,6 @@ if (isDocomo()) {
     ini_set('session.use_trans_sid', 1);
     Configure::write('Security.level', 'medium');
 }
-
-Configure::write('Session.save', Configure::read('Yak.save'));
+if (Configure::read('Yak.save')) {
+    Configure::write('Session.save', Configure::read('Yak.save'));
+}
