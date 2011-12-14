@@ -32,6 +32,9 @@ class AppController extends Controller {
 BehaviorなどでSessionを使うなど、YakComponent::initialize()よりsession_start()が早い場合は、上記に加えてbootstrap.phpに下記のコードを記述してください。
 
 <pre>
+if (!Configure::read('Yak.save')) {
+    Configure::write('Yak.save', Configure::read('Session.save'));
+}
 Configure::write('Session.save', '../plugins/yak/config/session');
 </pre>
 
