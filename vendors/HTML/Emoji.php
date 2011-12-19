@@ -357,8 +357,7 @@ class HTML_Emoji
     function decodeNumericentity($str, $convmap, $encoding)
     {
         $length = strlen($str);
-
-        if ($str[$length - 1] === '&') {
+        if ($length >= 1 && $str[$length - 1] === '&') {
             $str[$length - 1] = ' ';
             $str = mb_decode_numericentity($str, $convmap, $encoding);
             $length = strlen($str);
