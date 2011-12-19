@@ -6,6 +6,9 @@
    */
 if (!function_exists('isDocomo')) {
     function isDocomo(){
+        if (empty($_SERVER['HTTP_USER_AGENT'])) {
+            return false;
+        }
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
         if (strpos($user_agent, 'DoCoMo') !== false) {
             return true;
