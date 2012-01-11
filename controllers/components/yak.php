@@ -1,6 +1,6 @@
 <?php
 // HTML_Emoji
-App::import('Vendor', 'Yak.HTML_Emoji', array('file' => 'vendors' . DS . 'HTML' . DS . 'Emoji.php'));
+App::import('Vendor', 'Yak.HTML_Emoji', array('file' => 'HTML' . DS . 'Emoji.php'));
 class YakComponent extends Object {
     var $emoji;
     var $settings = array('enabled' => true);
