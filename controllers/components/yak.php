@@ -125,6 +125,7 @@ class YakComponent extends Object {
         }
         return $result;
     }
+
     /**
      * generateRedirectUrl
      *
