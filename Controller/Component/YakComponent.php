@@ -115,6 +115,24 @@ class YakComponent extends Component {
     }
 
     /**
+     * getCarrier
+     * Add Android
+     *
+     */
+    public function getCarrier(){
+        $result = $this->emoji->getCarrier();
+        if ($result === 'pc') {
+            if (isset($_SERVER['HTTP_USER_AGENT'])) {
+                $userAgent = $_SERVER['HTTP_USER_AGENT'];
+                if (preg_match('/Android/', $userAgent)) {
+                    return 'android';
+                }
+            }
+        }
+        return $result;
+    }
+
+    /**
      * generateRedirectUrl
      *
      * @param $url
