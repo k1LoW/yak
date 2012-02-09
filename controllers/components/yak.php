@@ -69,7 +69,6 @@ class YakComponent extends Object {
 
     /**
      * recursiveFilter
-     * description
      *
      * @param $data
      * @return
@@ -109,6 +108,23 @@ class YakComponent extends Object {
         return $this->emoji->filter($text, $filters);
     }
 
+    /**
+     * getCarrier
+     * Add Android
+     *
+     */
+    public function getCarrier(){
+        $result = $this->emoji->getCarrier();
+        if ($result === 'pc') {
+            if (isset($_SERVER['HTTP_USER_AGENT'])) {
+                $userAgent = $_SERVER['HTTP_USER_AGENT'];
+                if (preg_match('/Android/', $userAgent)) {
+                    return 'android';
+                }
+            }
+        }
+        return $result;
+    }
     /**
      * generateRedirectUrl
      *
