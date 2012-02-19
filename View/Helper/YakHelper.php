@@ -47,16 +47,6 @@ class YakHelper extends AppHelper {
     function afterLayout($layoutFile){
         parent::afterLayout($layoutFile);
 
-        if ($this->emoji->isMobile()) {
-            if ($this->emoji->isSjisCarrier()) {
-                header("Content-type: application/xhtml+xml; charset=Shift_JIS");
-            } else {
-                header("Content-type: application/xhtml+xml; charset=UTF-8");
-            }
-        } else {
-            header('Content-Type: text/html; charset=UTF-8');
-        }
-
         if (isset($this->_View->output)) {
             if (empty($this->request->data) || $this->emoji->isMobile()) {
                 $this->_View->output = $this->emoji->filter($this->_View->output, array('DecToUtf8', 'HexToUtf8', 'output'));
