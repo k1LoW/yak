@@ -6,6 +6,7 @@ App::uses('CakeSession', 'Model/Datasource');
 
 class YakComponent extends Component {
     private $emoji;
+    private $settings = array('enabled' => true);
 
     /**
      * __construct
@@ -35,7 +36,8 @@ class YakComponent extends Component {
      * @param &$controller
      * @return
      */
-    public function initialize($controller) {
+    public function initialize($controller, $settings = array()) {
+        $this->settings = array_merge($this->settings, $settings);
         $this->params = $this->controller->request->params;
 
         $this->emoji = HTML_Emoji::getInstance();
@@ -43,19 +45,21 @@ class YakComponent extends Component {
         if (!Configure::read('Yak.Session')) {
             Configure::write('Yak.Session', Configure::read('Session'));
         }
-        if ($this->emoji->getCarrier() === 'docomo') {
-            Configure::write('Yak.Session.ini',
-                             Set::merge(Configure::read('Yak,Session.ini'),
-                                        array('session.use_cookies' => 0,
-                                              'session.use_only_cookies' => 0,
-                                              'session.name' => Configure::read('Session.cookie'),
-                                              'url_rewriter.tags' => 'a=href,area=href,frame=src,input=src,form=fakeentry,fieldset=',
-                                              'session.use_trans_sid' => 1,
-                                              )));
-            Configure::write('Security.level', 'medium');
-            Configure::write('Session', Configure::read('Yak.Session'));
-            // auto start
-            CakeSession::start();
+        if ($this->settings['enabled']) {
+            if ($this->emoji->getCarrier() === 'docomo') {
+                Configure::write('Yak.Session.ini',
+                                 Set::merge(Configure::read('Yak,Session.ini'),
+                                            array('session.use_cookies' => 0,
+                                                  'session.use_only_cookies' => 0,
+                                                  'session.name' => Configure::read('Session.cookie'),
+                                                  'url_rewriter.tags' => 'a=href,area=href,frame=src,input=src,form=fakeentry,fieldset=',
+                                                  'session.use_trans_sid' => 1,
+                                                  )));
+                Configure::write('Security.level', 'medium');
+                Configure::write('Session', Configure::read('Yak.Session'));
+                // auto start
+                CakeSession::start();
+            }
         }
     }
 
@@ -66,10 +70,12 @@ class YakComponent extends Component {
      * @return
      */
     public function startup($controller) {
-        $controller->helpers[] = 'Yak.Yak';
+        if ($this->settings['enabled']) {
+            $controller->helpers[] = 'Yak.Yak';
 
-        if (!empty($controller->request->data)) {
-            $controller->request->data = $this->recursiveFilter($controller->request->data, 'input');
+            if (!empty($controller->request->data)) {
+                $controller->request->data = $this->recursiveFilter($controller->request->data, 'input');
+            }
         }
     }
 
