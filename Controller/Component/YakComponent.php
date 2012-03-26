@@ -163,4 +163,19 @@ class YakComponent extends Component {
         }
         return $url;
     }
+
+    public function beforeRender($controller) {
+        if ($this->emoji->isMobile()) {
+            $controller->response->type('xhtml');
+
+            if ($this->emoji->isSjisCarrier()) {
+                $controller->response->charset('Shift_JIS');
+            } else {
+                $controller->response->charset('UTF-8');
+            }
+        } else {
+            $controller->response->type('html');
+            $controller->response->charset('UTF-8');
+        }
+    }
 }
