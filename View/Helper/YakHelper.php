@@ -46,7 +46,6 @@ class YakHelper extends AppHelper {
      */
     function afterLayout($layoutFile){
         parent::afterLayout($layoutFile);
-
         if (isset($this->_View->output)) {
             if (empty($this->request->data) || $this->emoji->isMobile()) {
                 $this->_View->output = $this->emoji->filter($this->_View->output, array('DecToUtf8', 'HexToUtf8', 'output'));

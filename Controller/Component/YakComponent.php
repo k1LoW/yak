@@ -15,9 +15,10 @@ class YakComponent extends Component {
      * @param array $settings Settings to set to the component
      * @return void
      */
-    public function __construct(ComponentCollection $collection, $settings  =  array()) {
+    public function __construct(ComponentCollection $collection, $settings = array()) {
+        $this->settings = array_merge($this->settings, $settings);
         $this->controller = $collection->getController();
-        parent::__construct($collection, $settings);
+        parent::__construct($collection, $this->settings);
     }
 
     /**
@@ -37,7 +38,6 @@ class YakComponent extends Component {
      * @return
      */
     public function initialize($controller, $settings = array()) {
-        $this->settings = array_merge($this->settings, $settings);
         $this->params = $this->controller->request->params;
 
         $this->emoji = HTML_Emoji::getInstance();
