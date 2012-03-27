@@ -6,7 +6,7 @@ App::uses('CakeSession', 'Model/Datasource');
 
 class YakComponent extends Component {
     private $emoji;
-    private $settings = array('enabled' => true);
+    public $settings = array('enabled' => true);
 
     /**
      * __construct
