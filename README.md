@@ -1,25 +1,25 @@
-h1. Yak: Yet Another Ktai plugin for CakePHP
+# Yak: Yet Another Ktai plugin for CakePHP
 
-!/k1LoW/yak/raw/master/yak.png!
+![image](yak.png)
 
-h2. Features
+## Features
 
-h3. レンダリングエンジンにHTML_Emojiを採用
+### レンダリングエンジンにHTML_Emojiを採用
 
 絵文字を含むビューのレンダリングエンジンに変換処理が高速な "HTML_Emoji":http://libemoji.com/ を採用しています。
 Yakは "HTML_Emoji":http://libemoji.com/ のCakePHP用ラッパーであると言っても過言ではありません。
 
-h3. シンプル
+### シンプル
 
 機能は絵文字を含めた表示とセッション管理のみです。それ以外も必要になったら作ります。
 ソースコードはUTF-8固定、セッション使用固定、それ以外も "HTML_Emoji":http://libemoji.com/ の制約に沿うことで、非常にシンプルな使用ができることを目指しています。
 *"Do It Yourself!"* と言いたいところですが、本当のところはわかりません。
 
-h3. CakePHPに特化
+### CakePHPに特化
 
 app/pluginsにyakを設置し、app_contoller.phpに以下のように記述するだけ設定完了です。
 
-<pre>
+```
 class AppController extends Controller {
     var $components = array('Yak.Yak');
 
@@ -27,35 +27,34 @@ class AppController extends Controller {
         parent::redirect($this->Yak->generateRedirectUrl($url), $status, $exit);
     }
 }
-</pre>
+```
 
 POSTした絵文字をDBに保存したいときにはphp.iniや.htaccessで @mbstring.http_input=pass@ としてください (そうでない場合は特にDocomo以外の場合絵文字部分が文字化けします)
-また、絵文字表示に使用する "画像ファイル":http://libemoji.com/download はコミットしていませんので、こちらもapp/plugins/yak/webroot/img/に展開してください。
+また、絵文字表示に使用する "画像ファイル":http://libemoji.com/download はコミットしていませんので、こちらもapp/Plugins/Yak/webroot/img/に展開してください。
 
-h2. Requirements
+## Requirements
 
 * PHP >= 5.2.6
 * CakePHP >= 2.0
 
-h2. FAQ
+## FAQ
 
-h3. 動かないんだけど
+### 動かないんだけど
 
 動かないかもしれません。ちなみに動かないのは "HTML_Emoji":http://libemoji.com/ のせいではありません。
 
-h2. Lisence
+## Lisence
 
-h3. HTML_Emoji
+### HTML_Emoji
 
 Author : revulo <revulon@gmail.com>
-Copyright : 2009-2011 revulo
+Copyright : 2009- revulo
 License : http://www.opensource.org/licenses/mit-license.php  MIT License
 Version : Release: 0.8.3
 Link : http://libemoji.com/html_emoji
 
-h3. Yak
+### Yak
 
 Author : Kenichirou Oyama 
-Copyright : 2010-2011 101000code/101000LAB
+Copyright : 2010- 101000code/101000LAB
 License : http://www.opensource.org/licenses/mit-license.php  MIT License
-Version : alpha
