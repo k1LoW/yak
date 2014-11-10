@@ -1,2 +1,3 @@
 *~
-webroot/img/*.gif
+/webroot/img/*.gif
+/vendor

@@ -1,6 +1,7 @@
 <?php
-// HTML_Emoji
-App::import('Vendor', 'Yak.HTML_Emoji', array('file' => 'HTML' . DS . 'Emoji.php'));
+if (file_exists(dirname(__FILE__) . '/../../vendor/autoload.php')) {
+    require_once(dirname(__FILE__) . '/../../vendor/autoload.php');
+}
 App::uses('Component', 'Controller');
 App::uses('CakeSession', 'Model/Datasource');
 

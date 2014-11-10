@@ -13,7 +13,13 @@
         }
     ],
     "require": {
-        "composer/installers": "*"
+        "composer/installers": "*",
+        "woothee/woothee": "*"
+    },
+    "autoload": {
+        "files" : [
+            "vendor/revulo/HTML/Emoji.php"
+        ]
     },
     "require-dev": {
 		"phpunit/phpunit": "3.7.*"
