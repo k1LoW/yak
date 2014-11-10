@@ -1,7 +1,5 @@
 <?php
-if (file_exists(dirname(__FILE__) . '/../../vendor/autoload.php')) {
-    require_once(dirname(__FILE__) . '/../../vendor/autoload.php');
-}
+App::uses('YakEmoji', 'Yak.Lib');
 App::uses('Component', 'Controller');
 App::uses('CakeSession', 'Model/Datasource');
 
@@ -38,10 +36,9 @@ class YakComponent extends Component {
      * @param &$controller
      * @return
      */
-    public function initialize($controller, $settings = array()) {
+    public function initialize(Controller $controller, $settings = array()) {
         $this->params = $this->controller->request->params;
-
-        $this->emoji = HTML_Emoji::getInstance();
+        $this->emoji = YakEmoji::getStaticInstance();
         $this->emoji->setImageUrl(Router::url('/') . 'yak/img/');
         if (!Configure::read('Yak.Session')) {
             Configure::write('Yak.Session', Configure::read('Session'));
@@ -70,7 +67,7 @@ class YakComponent extends Component {
      * @param &$controller
      * @return
      */
-    public function startup($controller) {
+    public function startup(Controller $controller) {
         if ($this->settings['enabled']) {
             $controller->helpers[] = 'Yak.Yak';
 
@@ -165,7 +162,11 @@ class YakComponent extends Component {
         return $url;
     }
 
-    public function beforeRender($controller) {
+    /**
+     * beforeRender
+     *
+     */
+    public function beforeRender(Controller $controller) {
         if ($this->settings['enabled']) {
             if ($this->emoji->isMobile()) {
                 $controller->response->type('xhtml');
