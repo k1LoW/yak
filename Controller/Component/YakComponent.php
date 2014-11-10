@@ -49,7 +49,7 @@ class YakComponent extends Component {
         if ($this->settings['enabled']) {
             if ($this->emoji->getCarrier() === 'docomo') {
                 Configure::write('Yak.Session.ini',
-                                 Set::merge(Configure::read('Yak,Session.ini'),
+                                 Set::merge(Configure::read('Yak.Session.ini'),
                                             array('session.use_cookies' => 0,
                                                   'session.use_only_cookies' => 0,
                                                   'session.name' => Configure::read('Session.cookie'),
