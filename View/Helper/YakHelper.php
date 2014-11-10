@@ -3,14 +3,14 @@ App::uses('AppHelper', 'View/Helper');
 
 class YakHelper extends AppHelper {
 
-    var $helpers = array('Html');
+    public $helpers = array('Html');
 
     /**
      * __construct
      *
      * @return
      */
-    function __construct(View $View, $settings = array()) {
+    public function __construct(View $View, $settings = array()) {
         parent::__construct($View, $settings);
         $this->emoji = HTML_Emoji::getInstance();
         $this->emoji->setImageUrl($this->url('/') . 'yak/img/');
@@ -22,7 +22,7 @@ class YakHelper extends AppHelper {
      * @param $methodName, $args
      * @return
      */
-    function __call($methodName, $args){
+    public function __call($methodName, $args){
         return call_user_func_array(array($this->emoji, $methodName), $args);
     }
 
@@ -31,7 +31,7 @@ class YakHelper extends AppHelper {
      *
      * @return
      */
-    function charset(){
+    public function charset(){
         if ($this->emoji->isSjisCarrier()) {
             return $this->Html->charset('Shift_JIS');
         } else {
@@ -44,7 +44,7 @@ class YakHelper extends AppHelper {
      *
      * @return
      */
-    function afterLayout($layoutFile){
+    public function afterLayout($layoutFile){
         parent::afterLayout($layoutFile);
         if (isset($this->_View->output)) {
             if (empty($this->request->data) || $this->emoji->isMobile()) {

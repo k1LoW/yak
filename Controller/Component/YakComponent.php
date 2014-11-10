@@ -54,7 +54,7 @@ class YakComponent extends Component {
                                                   'session.name' => Configure::read('Session.cookie'),
                                                   'url_rewriter.tags' => 'a=href,area=href,frame=src,input=src,form=fakeentry,fieldset=',
                                                   'session.use_trans_sid' => 1,
-                                                  )));
+                                            )));
                 Configure::write('Security.level', 'medium');
                 Configure::write('Session', Configure::read('Yak.Session'));
                 // auto start
@@ -146,15 +146,15 @@ class YakComponent extends Component {
      */
     public function generateRedirectUrl($url){
         if ($this->emoji->getCarrier() == 'docomo') {
-            if(is_array($url)) {
-                if(!isset($url['?'])) {
+            if (is_array($url)) {
+                if (!isset($url['?'])) {
                     $url['?'] = array();
                 }
                 $url['?'][session_name()] = session_id();
-            }else {
-                if(strpos($url, '?') === false) {
+            } else {
+                if (strpos($url, '?') === false) {
                     $url .= '?';
-                }else {
+                } else {
                     $url .= '&';
                 }
                 $url .= sprintf("%s=%s", session_name(), urlencode(session_id()));
