@@ -55,6 +55,6 @@ Link : http://libemoji.com/html_emoji
 
 ### Yak
 
-Author : Kenichirou Oyama 
+Author : Ken'ichiro Oyama 
 Copyright : 2010- 101000code/101000LAB
 License : http://www.opensource.org/licenses/mit-license.php  MIT License

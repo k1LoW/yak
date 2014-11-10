@@ -1,0 +1,21 @@
+{
+    "name": "k1low/yak",
+    "description": "Yak: Yet Another Ktai plugin for CakePHP",
+    "type": "cakephp-plugin",
+    "keywords": ["cakephp", "mobile"],
+    "homepage": "https://github.com/k1LoW/yak",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ken'ichiro Oyama",
+            "homepage": "https://github.com/k1LoW",
+            "role": "Author"
+        }
+    ],
+    "require": {
+        "composer/installers": "*"
+    },
+    "require-dev": {
+		"phpunit/phpunit": "3.7.*"
+	}
+}
