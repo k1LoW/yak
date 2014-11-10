@@ -1,6 +1,5 @@
 <?php
-// HTML_Emoji
-App::import('Vendor', 'Yak.HTML_Emoji', array('file' => 'HTML' . DS . 'Emoji.php'));
+App::uses('YakEmoji', 'Yak.Lib');
 App::uses('Component', 'Controller');
 App::uses('CakeSession', 'Model/Datasource');
 
@@ -17,7 +16,6 @@ class YakComponent extends Component {
      */
     public function __construct(ComponentCollection $collection, $settings = array()) {
         $this->settings = array_merge($this->settings, $settings);
-        $this->controller = $collection->getController();
         parent::__construct($collection, $this->settings);
     }
 
@@ -34,13 +32,12 @@ class YakComponent extends Component {
     /**
      * initialize
      *
-     * @param &$controller
+     * @param $controller
      * @return
      */
-    public function initialize($controller, $settings = array()) {
-        $this->params = $this->controller->request->params;
-
-        $this->emoji = HTML_Emoji::getInstance();
+    public function initialize(Controller $controller, $settings = array()) {
+        $this->params = $controller->request->params;
+        $this->emoji = YakEmoji::getStaticInstance();
         $this->emoji->setImageUrl(Router::url('/') . 'yak/img/');
         if (!Configure::read('Yak.Session')) {
             Configure::write('Yak.Session', Configure::read('Session'));
@@ -48,7 +45,7 @@ class YakComponent extends Component {
         if ($this->settings['enabled']) {
             if ($this->emoji->getCarrier() === 'docomo') {
                 Configure::write('Yak.Session.ini',
-                                 Set::merge(Configure::read('Yak,Session.ini'),
+                                 Set::merge(Configure::read('Yak.Session.ini'),
                                             array('session.use_cookies' => 0,
                                                   'session.use_only_cookies' => 0,
                                                   'session.name' => Configure::read('Session.cookie'),
@@ -66,10 +63,10 @@ class YakComponent extends Component {
     /**
      * startup
      *
-     * @param &$controller
+     * @param $controller
      * @return
      */
-    public function startup($controller) {
+    public function startup(Controller $controller) {
         if ($this->settings['enabled']) {
             $controller->helpers[] = 'Yak.Yak';
 
@@ -164,7 +161,11 @@ class YakComponent extends Component {
         return $url;
     }
 
-    public function beforeRender($controller) {
+    /**
+     * beforeRender
+     *
+     */
+    public function beforeRender(Controller $controller) {
         if ($this->settings['enabled']) {
             if ($this->emoji->isMobile()) {
                 $controller->response->type('xhtml');

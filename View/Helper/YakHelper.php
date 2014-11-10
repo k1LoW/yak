@@ -1,5 +1,6 @@
 <?php
 App::uses('AppHelper', 'View/Helper');
+App::uses('YakEmoji', 'Yak.Lib');
 
 class YakHelper extends AppHelper {
 
@@ -12,7 +13,7 @@ class YakHelper extends AppHelper {
      */
     public function __construct(View $View, $settings = array()) {
         parent::__construct($View, $settings);
-        $this->emoji = HTML_Emoji::getInstance();
+        $this->emoji = YakEmoji::getStaticInstance();
         $this->emoji->setImageUrl($this->url('/') . 'yak/img/');
     }
 
