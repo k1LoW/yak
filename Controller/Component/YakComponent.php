@@ -16,7 +16,6 @@ class YakComponent extends Component {
      */
     public function __construct(ComponentCollection $collection, $settings = array()) {
         $this->settings = array_merge($this->settings, $settings);
-        $this->controller = $collection->getController();
         parent::__construct($collection, $this->settings);
     }
 
@@ -33,11 +32,11 @@ class YakComponent extends Component {
     /**
      * initialize
      *
-     * @param &$controller
+     * @param $controller
      * @return
      */
     public function initialize(Controller $controller, $settings = array()) {
-        $this->params = $this->controller->request->params;
+        $this->params = $controller->request->params;
         $this->emoji = YakEmoji::getStaticInstance();
         $this->emoji->setImageUrl(Router::url('/') . 'yak/img/');
         if (!Configure::read('Yak.Session')) {
@@ -64,7 +63,7 @@ class YakComponent extends Component {
     /**
      * startup
      *
-     * @param &$controller
+     * @param $controller
      * @return
      */
     public function startup(Controller $controller) {
