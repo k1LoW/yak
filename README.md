@@ -32,8 +32,8 @@ class AppController extends Controller {
 }
 ```
 
-POSTした絵文字をDBに保存したいときにはphp.iniや.htaccessで `mbstring.http_input=pass1 としてください (そうでない場合は特にDocomo以外の場合絵文字部分が文字化けします)
-また、絵文字表示に使用する [画像ファイル](http://libemoji.com/download) はコミットしていませんので、こちらもapp/Plugins/Yak/webroot/img/に展開してください。
+POSTした絵文字をDBに保存したいときにはphp.iniや.htaccessで `mbstring.http_input=pass` としてください (そうでない場合は特にDocomo以外の場合絵文字部分が文字化けします)
+また、絵文字表示に使用する [画像ファイル](http://libemoji.com/download) はコミットしていませんので、こちらも `app/webroot/yak/img/` に展開してください。
 
 ## Requirements
 
@@ -50,26 +50,25 @@ POSTした絵文字をDBに保存したいときにはphp.iniや.htaccessで `mb
 
 ### HTML_Emoji
 
-Author : revulo <revulon@gmail.com>
-Copyright : 2009- revulo
-License : http://www.opensource.org/licenses/mit-license.php  MIT License
-Version : Release: 0.8.3
-Link : http://libemoji.com/html_emoji
+- Author : revulo <revulon@gmail.com>
+- Copyright : 2009- revulo
+- License : http://www.opensource.org/licenses/mit-license.php  MIT License
+- Version : Release: 0.8.3
+- Link : http://libemoji.com/html_emoji
 
 ### woothee-php
 
-Authors :
-- k-holy
-- okonomi
-- TAGOMORI Satoshi
-- Yuya Takeyama sign.of.the.wolf.pentagram@gmail.com
-
-Copyright : Copyright 2014- Yuya Takeyama (@yuya-takeyama)
-License : Apache License, Version 2.0
-Link : https://github.com/woothee/woothee-php
+- Authors :
+ - k-holy
+ - okonomi
+ - TAGOMORI Satoshi
+ - Yuya Takeyama sign.of.the.wolf.pentagram@gmail.com
+- Copyright : Copyright 2014- Yuya Takeyama (@yuya-takeyama)
+- License : Apache License, Version 2.0
+- Link : https://github.com/woothee/woothee-php
 
 ### Yak
 
-Author : Ken'ichiro Oyama
-Copyright : 2010- 101000code/101000LAB
-License : http://www.opensource.org/licenses/mit-license.php  MIT License
+- Author : Ken'ichiro Oyama
+- Copyright : 2010- 101000code/101000LAB
+- License : http://www.opensource.org/licenses/mit-license.php  MIT License
