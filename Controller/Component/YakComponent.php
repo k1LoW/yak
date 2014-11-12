@@ -167,6 +167,9 @@ class YakComponent extends Component {
      */
     public function beforeRender(Controller $controller) {
         if ($this->settings['enabled']) {
+            if (empty($this->emoji)) {
+                $this->emoji = YakEmoji::getStaticInstance();
+            }
             if ($this->emoji->isMobile()) {
                 $controller->response->type('xhtml');
 
