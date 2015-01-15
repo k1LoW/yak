@@ -55,7 +55,7 @@ class YakHelper extends AppHelper {
                 $outputArray = preg_split('/(value ?= ?[\'"][^"]+[\'"])|(<textarea[^>]+>[^<]+<\/textarea>)/',  $this->_View->output, null, PREG_SPLIT_DELIM_CAPTURE);
                 $output = '';
                 foreach ($outputArray as $key => $value) {
-                    if (!preg_match('/value ?= ?[\'"]([^"]+)[\'"]|<textarea[^>]+>([^<]+)<\/textarea>/',  $value)) {
+                    if (!preg_match('/value ?= ?[\'"]([^"]+)[\'"]|<textarea[^>]+>([^<]+)<\/textarea>/',  $value) && strlen($value) > 0) {
                         $output .= $this->emoji->filter($value, array('DecToUtf8', 'HexToUtf8', 'output'));
                     } else {
                         $output .= $value;
