@@ -1,6 +1,8 @@
 <?php
 App::uses('AppHelper', 'View/Helper');
 App::uses('YakEmoji', 'Yak.Lib');
+App::uses('YakLoader', 'Yak.Lib');
+spl_autoload_register(array('YakLoader', 'loadClass'));
 
 class YakHelper extends AppHelper {
 
@@ -13,6 +15,7 @@ class YakHelper extends AppHelper {
      */
     public function __construct(View $View, $settings = array()) {
         parent::__construct($View, $settings);
+        YakLoader::setIncludePath();
         $this->emoji = YakEmoji::getStaticInstance();
         $this->emoji->setImageUrl($this->url('/') . 'yak/img/');
     }
@@ -63,6 +66,7 @@ class YakHelper extends AppHelper {
                 }
                 $this->_View->output = $output;
             }
+            $this->_View->output = HTML_CSS_Mobile::getInstance()->setBaseDir(WWW_ROOT.DS.'css/m/')->apply($this->_View->output);
         }
     }
 

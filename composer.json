@@ -12,9 +12,18 @@
             "role": "Author"
         }
     ],
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.php.net/"
+        }
+    ],
     "require": {
         "composer/installers": "*",
-        "woothee/woothee": "*"
+        "woothee/woothee": "*",
+        "pear-pear.php.net/html_common": "*"
+    },
+    "scripts": {
     },
     "autoload": {
         "psr-0": {
