@@ -249,36 +249,6 @@ class HTML_CSS extends HTML_Common
      */
     var $_lastError = false;
 
-
-    /**
-     * Class constructor
-     *
-     * Class constructors :
-     * Zend Engine 1 uses HTML_CSS, while Zend Engine 2 uses __construct
-     *
-     * @param array $attributes (optional) Pass options to the constructor.
-     *                          Valid options are :
-     *                           - xhtml (sets xhtml compliance),
-     *                           - tab (sets indent string),
-     *                           - filename (name of file to be parsed),
-     *                           - cache (determines whether the nocache headers
-     *                             are sent),
-     *                           - oneline (whether to output each definition
-     *                             on one line),
-     *                           - groupsfirst (determines whether to output groups
-     *                             before elements)
-     *                           - allowduplicates (allow to have duplicate rules
-     *                             in selector)
-     * @param array $errorPrefs (optional) has to configure error handler
-     *
-     * @since      version 0.2.0 (2003-07-31)
-     * @access     public
-     */
-    function HTML_CSS($attributes = array(), $errorPrefs = array())
-    {
-        $this->__construct($attributes, $errorPrefs);
-    }
-
     /**
      * Class constructor
      *
