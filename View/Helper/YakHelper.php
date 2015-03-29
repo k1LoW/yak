@@ -7,6 +7,7 @@ spl_autoload_register(array('YakLoader', 'loadClass'));
 class YakHelper extends AppHelper {
 
     public $helpers = array('Html');
+    public $mobileCss = false;
 
     /**
      * __construct
@@ -66,7 +67,10 @@ class YakHelper extends AppHelper {
                 }
                 $this->_View->output = $output;
             }
-            $this->_View->output = HTML_CSS_Mobile::getInstance()->setBaseDir(WWW_ROOT.DS.'css/m/')->apply($this->_View->output);
+            if (!empty($this->settings['mobileCss']) && $this->emoji->isMobile()) {
+                $mobileCssBaseDir = Configure::read('Yak.mobileCssBaseDir');
+                $this->_View->output = HTML_CSS_Mobile::getInstance()->setBaseDir($mobileCssBaseDir)->apply($this->_View->output);
+            }
         }
     }
 

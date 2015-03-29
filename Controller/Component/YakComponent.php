@@ -5,7 +5,10 @@ App::uses('CakeSession', 'Model/Datasource');
 
 class YakComponent extends Component {
     private $emoji;
-    public $settings = array('enabled' => true);
+    public $settings = array(
+        'enabled' => true,
+        'mobileCss' => false,
+    );
 
     /**
      * __construct
@@ -68,7 +71,13 @@ class YakComponent extends Component {
      */
     public function startup(Controller $controller) {
         if ($this->settings['enabled']) {
-            $controller->helpers[] = 'Yak.Yak';
+            if ($this->settings['mobileCss']) {
+                $controller->helpers['Yak.Yak'] = [
+                    'mobileCss' => true,
+                ];
+            } else {
+                $controller->helpers[] = 'Yak.Yak';
+            }
 
             if (!empty($controller->request->data)) {
                 $controller->request->data = $this->recursiveFilter($controller->request->data, 'input');
