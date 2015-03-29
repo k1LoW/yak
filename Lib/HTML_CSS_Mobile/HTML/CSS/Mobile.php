@@ -115,7 +115,7 @@ class HTML_CSS_Mobile
   /**
    * libxmlのエラーをハンドリングした結果を返す。
    *   LibXMLErrorオブジェクトの配列が返ってくる。
-   * 
+   *
    * @return array
    */
   public function getXmlErrors()
@@ -151,11 +151,10 @@ class HTML_CSS_Mobile
 
     // 同様に、<br />が<br>になってしまう問題のために退避
     #TODO: meta hr 等も同様だが、危険なのでさける。。。本質的な解決になっていない。
-    $document = preg_replace('/<(br\s*.*\/)>/', 'HTMLCSSBRESCAPE%$1%::::::::', $document);
+    $document = preg_replace('/<(br\s*[^\/>]*\/)>/', 'HTMLCSSBRESCAPE%$1%::::::::', $document);
 
     // 文字参照をエスケープ
     $document = preg_replace('/&(#(?:\d+|x[0-9a-fA-F]+)|[A-Za-z0-9]+);/', 'HTMLCSSINLINERESCAPE%$1%::::::::', $document);
-
     // CDATAを退避
     $cdata_pattern = '/' . preg_quote('<![CDATA[') . '.*' . preg_quote(']]>') . '/Us';
     $escaped_cdata = null;
