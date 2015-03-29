@@ -20,10 +20,10 @@
     ],
     "require": {
         "composer/installers": "*",
-        "woothee/woothee": "*",
-        "pear-pear.php.net/html_common": "*"
+        "woothee/woothee": "*"
     },
-    "scripts": {
+    "suggest": {
+        "pear-pear.php.net/html_common": "to use mobileCSS option"
     },
     "autoload": {
         "psr-0": {
