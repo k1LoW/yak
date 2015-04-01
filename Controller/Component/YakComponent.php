@@ -72,9 +72,9 @@ class YakComponent extends Component {
     public function startup(Controller $controller) {
         if ($this->settings['enabled']) {
             if ($this->settings['mobileCss']) {
-                $controller->helpers['Yak.Yak'] = [
+                $controller->helpers['Yak.Yak'] = array(
                     'mobileCss' => true,
-                ];
+                );
             } else {
                 $controller->helpers[] = 'Yak.Yak';
             }
