@@ -49,7 +49,7 @@ class YakEmoji extends HTML_Emoji {
      * @return string
      */
     private static function detectCarrier() {
-        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+        $userAgent = env('HTTP_USER_AGENT');
         $classifier = new \Woothee\Classifier;
         $r = $classifier->parse($userAgent);
 
