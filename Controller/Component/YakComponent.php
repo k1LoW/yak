@@ -134,7 +134,7 @@ class YakComponent extends Component {
     public function getCarrier(){
         $result = $this->emoji->getCarrier();
         if ($result === 'pc') {
-            if (env(['HTTP_USER_AGENT'])) {
+            if (env('HTTP_USER_AGENT')) {
                 $userAgent = env('HTTP_USER_AGENT');
                 if (preg_match('/Android/', $userAgent)) {
                     return 'android';
