@@ -52,6 +52,10 @@ class YakHelper extends AppHelper {
     public function afterLayout($layoutFile){
         parent::afterLayout($layoutFile);
         if (isset($this->_View->output)) {
+            // hankakuKana
+            if (!empty($this->settings['hankakuKana']) && $this->emoji->isMobile()) {
+                $this->_View->output = mb_convert_kana($this->_View->output, 'k', 'UTF-8');
+            }
             if (empty($this->request->data) || $this->emoji->isMobile()) {
                 $this->_View->output = $this->emoji->filter($this->_View->output, array('DecToUtf8', 'HexToUtf8', 'output'));
             } else {
@@ -67,6 +71,7 @@ class YakHelper extends AppHelper {
                 }
                 $this->_View->output = $output;
             }
+            // mobileCss
             if (!empty($this->settings['mobileCss']) && $this->emoji->isMobile()) {
                 $mobileCssBaseDir = Configure::read('Yak.mobileCssBaseDir');
                 $this->_View->output = HTML_CSS_Mobile::getInstance()->setBaseDir($mobileCssBaseDir)->apply($this->_View->output);

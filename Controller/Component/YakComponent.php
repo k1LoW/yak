@@ -8,6 +8,7 @@ class YakComponent extends Component {
     public $settings = array(
         'enabled' => true,
         'mobileCss' => false,
+        'hankakuKana' => false,
     );
 
     /**
@@ -71,9 +72,10 @@ class YakComponent extends Component {
      */
     public function startup(Controller $controller) {
         if ($this->settings['enabled']) {
-            if ($this->settings['mobileCss']) {
+            if ($this->settings['mobileCss'] || $this->settings['hankakuKana']) {
                 $controller->helpers['Yak.Yak'] = array(
-                    'mobileCss' => true,
+                    'mobileCss' => $this->settings['mobileCss'],
+                    'hankakuKana' => $this->settings['hankakuKana'],
                 );
             } else {
                 $controller->helpers[] = 'Yak.Yak';
